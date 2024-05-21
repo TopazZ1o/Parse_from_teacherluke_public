@@ -1,8 +1,7 @@
-from bs4 import BeautifulSoup
 import requests
+from bs4 import BeautifulSoup
 
 url = "https://teacherluke.co.uk"
-
 link = f"/archive-of-episodes-1-149/"
 response = requests.get(f'{url}/{link}')
 # print(response)
@@ -24,7 +23,7 @@ for audio in block.find_all('a'):
     result_link = necessary_block.find('a').get('href')
     necessary_audio = requests.get(result_link).content
 
-    with open(f'C:/Users/Timur/Desktop/audio/{name_block_editied}.mp3', 'wb') as file:
+    with open(f'audio/{name_block_editied}.mp3', 'wb') as file:
         file.write(necessary_audio)
 
     print(f'аудио {name_block_editied}.mp3 скачалось')
