@@ -1,8 +1,12 @@
+import os
+
 import requests
 from bs4 import BeautifulSoup
 
+os.mkdir("audio")
 url = "https://teacherluke.co.uk"
 link = f"/archive-of-episodes-1-149/"
+
 response = requests.get(f'{url}/{link}')
 # print(response)
 
