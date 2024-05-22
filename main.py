@@ -30,13 +30,22 @@ for audio in block.find_all('a'):
         name_block_editied = (name_block_text.replace('/', '.').replace('?', '.').
                               replace(':', '.').replace('*', '.').replace('"', '.').
                               replace('<', '.').replace('>', '.').replace('|', '.'))
-        result_link = necessary_block.find('a').get('href')
-        necessary_audio = requests.get(result_link).content
+        # result_link = necessary_block.find('a').get('href')
+        result_link = None
+        for link in necessary_block.find_all('a'):
+            if 'open.acast.com' in link.get('href'):
+                result_link = link.get('href')
+                break
 
-        with open(f'audio/{name_block_editied}.mp3', 'wb') as file:
-            file.write(necessary_audio)
+        if result_link:
+            necessary_audio = requests.get(result_link).content
 
-        print(f'аудио {name_block_editied}.mp3 скачалось')
+            with open(f'audio/{name_block_editied}.mp3', 'wb') as file:
+                file.write(necessary_audio)
+
+            print(f'аудио {name_block_editied}.mp3 скачалось')
+        else:
+            print("Ссылка на аудио не найдена")
     else:
         print("Элемент не найден")
 
