@@ -8,10 +8,8 @@ url = "https://teacherluke.co.uk"
 link = f"/archive-of-episodes-1-149/"
 
 response = requests.get(f'{url}/{link}')
-# print(response)
 
 bs = BeautifulSoup(response.text, "lxml")
-# print(bs)
 
 block = bs.find('div', class_ = 'entry-content')
 
@@ -29,11 +27,12 @@ for audio in block.find_all('a'):
         name_block_text = name_block.text
         name_block_editied = (name_block_text.replace('/', '.').replace('?', '.').
                               replace(':', '.').replace('*', '.').replace('"', '.').
-                              replace('<', '.').replace('>', '.').replace('|', '.'))
-        # result_link = necessary_block.find('a').get('href')
+                              replace('<', '.').replace('>', '.').replace('|', '.').
+                              replace('\"', '.'))
         result_link = None
         for link in necessary_block.find_all('a'):
-            if 'open.acast.com' in link.get('href'):
+            if ('open.acast.com' in link.get('href') or 'traffic.libsyn.com' in link.get('href')
+                    or 'audioboom.com' in link.get('href')):
                 result_link = link.get('href')
                 break
 
