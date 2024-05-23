@@ -32,10 +32,9 @@ for audio in block.find_all('a'):
         result_link = None
         for link in necessary_block.find_all('a'):
             if ('open.acast.com' in link.get('href') or 'traffic.libsyn.com' in link.get('href')
-                    or 'hotenov.com' in link.get('hred')):
+                    or 'hotenov.com' in link.get('href')):
                 result_link = link.get('href')
                 break
-
         if result_link:
             necessary_audio = requests.get(result_link).content
 
